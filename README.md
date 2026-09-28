@@ -1,20 +1,37 @@
-<<<<<<< HEAD
-# React + Vite
+# Shelter Scene
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Shelter screen background. It shows one of five room images depending on
+the player's stats, and crossfades between them with a blur pulse when the
+state changes.
 
-Currently, two official plugins are available:
+## Files
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| File | Location | Purpose |
+|---|---|---|
+| `ShelterScene.jsx` | `src/components/` | The component. Reads stats, picks the image, animates the swap |
+| `shelterState.js` | `src/lib/` | `getShelterTier(stats)` and the `SHELTER_IMAGES` map |
+| `tidy.webp`, `worn.webp`, `neglected.webp`, `desolate.webp` | `src/assets/shelter/` | The five room states |
 
-## React Compiler
+## How it works
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. `ShelterScene` reads `energy`, `water` and `health` from the store.
+2. `getShelterTier` averages them and returns a tier:
 
-## Expanding the ESLint configuration
+| Average | Tier |
+|---|---|
+| 90 and above | tidy |
+| 40 to 89 | worn |
+| 20 to 39 | neglected |
+| below 20 | desolate |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. The image for that tier fades in with a blur pulse (1.2s) while the old one fades out.
+4. All five images are preloaded on mount so tier changes don't stutter.
+
+## Dependencies
+
+- `react`
+- `framer-motion`
+- The game store (`zustand`)
 =======
 # Havoc-
 Havoc turns wellness tracking into gameplay. In a post-apocalyptic world, you complete daily habit-based missions — hydration, activity, sleep — to upgrade your shelter and keep your companion thriving. No more checklists that get abandoned: every real habit you build powers real progress in-game.
