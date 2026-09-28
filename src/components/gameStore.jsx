@@ -1,0 +1,1 @@
+export const useGame = { energy: 10, water: 20, health: 40 }; // TEMP — delete once store lands
